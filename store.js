@@ -1,6 +1,6 @@
 import items from './items.json';
 import formatCurrency from './util/formatCurrency.js';
-import addToCart from './shoppingCart.js';
+import { addToCart } from './shoppingCart.js';
 
 const storeItemTemplate = document.querySelector('#store-item-template');
 const dataStoreContainer = document.querySelector('[data-store-container]');
@@ -11,7 +11,7 @@ export function storeSetup() {
         if(e.target.matches('[data-add-to-cart-btn]')) {
             const id = e.target.closest('[data-store-item]')
             .dataset.itemId
-            addToCart(id);
+            addToCart(parseInt(id));
         }
     })
     items.forEach(renderStoreItem);
