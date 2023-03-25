@@ -1,19 +1,17 @@
 import items from './items.json';
 import formatCurrency from './util/formatCurrency.js';
 import { addToCart } from './shoppingCart.js';
+import addGlobalEventListner from './util/addGlobalEventListner.js';
 
 const storeItemTemplate = document.querySelector('#store-item-template');
 const dataStoreContainer = document.querySelector('[data-store-container]');
 const IMAGE_URL = 'https://dummyimage.com/420x260';
 
 export function storeSetup() {
-    document.addEventListener('click', (e) => {
-        if(e.target.matches('[data-add-to-cart-btn]')) {
-            const id = e.target.closest('[data-store-item]')
-            .dataset.itemId
-            addToCart(parseInt(id));
-        }
-    })
+    addGlobalEventListner('click', '[data-add-to-cart-btn]', e => {
+        const id = e.target.closest('[data-store-item]').dataset.itemId;
+        addToCart(parseInt(id));
+    });
     items.forEach(renderStoreItem);
 }
 
