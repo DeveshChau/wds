@@ -9,6 +9,7 @@ const cartItemContainer = document.querySelector('[data-cart-items]');
 const IMAGE_URL = 'https://dummyimage.com/210x130';
 const cartQuantity = document.querySelector('[data-cart-quantity]');
 const cartTotal = document.querySelector('[data-cart-total]');
+const cart = document.querySelector('[data-cart]');
 
 export function setUpShoppingcart() {
     cartButton.addEventListener('click', () => {
@@ -27,6 +28,24 @@ export function addToCart(id) {
 }
 
 function renderCart() {
+    if (shoppingCart.length === 0) {
+        hideCart();
+    } else {
+        showCart();
+        renderCartItem();
+    }
+}
+
+function hideCart() {
+    cart.classList.add('invisible');
+    cartItemWrapper.classList.add('invisible');
+}
+
+function showCart() {
+    cart.classList.remove('invisible');
+}
+
+function renderCartItem() {
     const total = shoppingCart.reduce((sum, entry) => {
         const item = items.find(i => entry.id === i.id);
         return sum + (item.priceCents * entry.quantity);
