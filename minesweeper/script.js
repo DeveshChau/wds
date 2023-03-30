@@ -4,9 +4,11 @@ const numberOfMines = 5;
 const board = createBoard(boardSize, numberOfMines);
 console.log(board);
 const boardElement = document.querySelector('.board');
-boardElement.style.setProperty('--size', boardSize)
+boardElement.style.setProperty('--size', boardSize);
+const mineLeft = document.querySelector('[data-mine-left]');
 board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);
-    })
-})
+    });
+});
+mineLeft.textContent = numberOfMines;
