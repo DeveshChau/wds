@@ -42,6 +42,17 @@ export function markTile(tile) {
     }
 }
 
+export function revealTile(tile) {
+    if (tile.status !== TILE_STATUSES.HIDDEN) {
+        return;
+    }
+    if (tile.mine) {
+        tile.status = TILE_STATUSES.MINE;
+        return;
+    }
+    tile.status = TILE_STATUSES.NUMBER;
+}
+
 function getMinePositions(boardSize, numberOfMines) {
     const positions = [];
     while (positions.length < numberOfMines) {
