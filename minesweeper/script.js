@@ -1,4 +1,4 @@
-import { createBoard, markTile } from './minesweeper.js'
+import { TILE_STATUSES, createBoard, markTile } from './minesweeper.js'
 const boardSize = 5;
 const numberOfMines = 5;
 const board = createBoard(boardSize, numberOfMines);
@@ -13,7 +13,15 @@ board.forEach(row => {
         tile.element.addEventListener('contextmenu', e => {
             e.preventDefault();
             markTile(tile);
+            updateMineLeft();
         });
     });
 });
 mineLeft.textContent = numberOfMines;
+
+function updateMineLeft() {
+    const markedTileCount = board.reduce((count, row) => {
+        return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length);
+    }, 0);
+    mineLeft.textContent = numberOfMines - markedTileCount; 
+}
