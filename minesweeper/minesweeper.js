@@ -42,7 +42,7 @@ export function markTile(tile) {
     }
 }
 
-export function revealTile(tile) {
+export function revealTile(board, tile) {
     if (tile.status !== TILE_STATUSES.HIDDEN) {
         return;
     }
@@ -51,6 +51,13 @@ export function revealTile(tile) {
         return;
     }
     tile.status = TILE_STATUSES.NUMBER;
+    const adjacentTile = nearByTiles(board, tile);
+    const mines = adjacentTile.filter(t => t.mine);
+    if (mines.length === 0) {
+        adjacentTile.forEach(revealTile.bind(null, board))
+    } else {
+        tile.element.textContent = mines.length;
+    }
 }
 
 function getMinePositions(boardSize, numberOfMines) {
@@ -73,4 +80,15 @@ function positionMatch(a, b) {
 
 function randomNumber(boardSize) {
     return Math.floor(Math.random() * boardSize);
+}
+
+function nearByTiles(board, {x, y}) {
+    const tiles = [];
+    for (let xOffset = -1; xOffset <= 1; xOffset++) {
+        for (let yOffset = -1; yOffset <= 1; yOffset++) {
+         const tile = board[x + xOffset]?.[y + yOffset];   
+         if (tile) tiles.push(tile);
+        }        
+    }
+    return tiles;
 }
