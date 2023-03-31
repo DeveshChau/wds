@@ -1,8 +1,7 @@
 import { TILE_STATUSES, createBoard, markTile, revealTile, checkWin, checkLose } from './minesweeper.js'
 const boardSize = 5;
-const numberOfMines = 5;
+const numberOfMines = 1;
 const board = createBoard(boardSize, numberOfMines);
-console.log(board);
 const boardElement = document.querySelector('.board');
 boardElement.style.setProperty('--size', boardSize);
 const mineLeft = document.querySelector('[data-mine-left]');
